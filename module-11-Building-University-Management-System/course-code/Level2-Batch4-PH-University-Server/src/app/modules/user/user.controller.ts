@@ -5,7 +5,7 @@ const createUser = async (req: Request, res: Response) => {
   try {
     const { password, student: studentData } = req.body;
 
-    const result = await UserService.createUserIntoDb(password, studentData);
+    const result = await UserService.createStudentIntoDb(password, studentData);
     res.status(200).json({
       success: true,
       message: 'User is created successfully',
@@ -13,6 +13,7 @@ const createUser = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.log(error);
+    res.send(error);
   }
 };
 export const UserControler = {

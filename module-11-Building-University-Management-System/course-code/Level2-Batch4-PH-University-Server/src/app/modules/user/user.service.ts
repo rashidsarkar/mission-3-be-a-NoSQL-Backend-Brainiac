@@ -1,29 +1,30 @@
 import config from '../../config';
 import { TStudent } from '../student/student.interface';
 import { Student } from '../student/student.model';
-import { NewUser } from './user.interface';
+import { NewUser, TUser } from './user.interface';
 import { User } from './user.model';
 
 const createStudentIntoDb = async (password: string, studentData: TStudent) => {
   // .. create user object
-  const user: NewUser = {};
+  const userData: Partial<TUser> = {};
 
-  user.password = password || (config.default_pass as string);
+  userData.password = password || (config.default_pass as string);
 
   // set student role
-  user.role = 'student';
+  userData.role = 'student';
   // set manually id
-  user.id = '2030100001';
+  userData.id = '2030100002';
   // create a user
-  const result = await User.create(user);
+  const newUser = await User.create(userData);
   // create a student
-  if (Object.keys(result).length) {
+  if (Object.keys(newUser).length) {
     // set id , _id as user
-    studentData.id = result.id;
-    studentData.user = result._id;
+    studentData.id = newUser.id;
+    studentData.user = newUser._id;
+    const newStudent = await Student.create(studentData);
+    return newStudent;
   }
-  return result;
 };
 export const UserService = {
-  createUserIntoDb,
+  createStudentIntoDb,
 };
