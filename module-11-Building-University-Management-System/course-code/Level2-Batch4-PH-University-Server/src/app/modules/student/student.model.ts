@@ -1,5 +1,4 @@
 import { Schema, model } from 'mongoose';
-import bcrypt from 'bcrypt';
 
 import {
   StudentModel,
@@ -8,7 +7,6 @@ import {
   TStudent,
   TUserName,
 } from './student.interface';
-import config from '../../config';
 
 // Schema for user name details
 const userNameSchema = new Schema<TUserName>({
@@ -94,9 +92,7 @@ const studentSchema = new Schema<TStudent, StudentModel>(
       required: [true, 'Student ID is required'], // Field is required
       unique: true, // Ensures ID is unique
     },
-    password: {
-      type: String,
-    },
+
     user: {
       type: Schema.ObjectId,
       required: [true, 'Student ID is required'],
@@ -165,38 +161,38 @@ const studentSchema = new Schema<TStudent, StudentModel>(
   },
 );
 
-// pre save middleaware / hook
-studentSchema.pre('save', async function (next) {
-  // code to be executed before saving the document
-  // console.log(this, 'pre hook code to be executed before saving the document');
-  // eslint-disable-next-line @typescript-eslint/no-this-alias
-  const user = this;
-  //hashing password and save in db
-  user.password = await bcrypt.hash(user.password, Number(config.bcrypt_salt));
-  next();
-});
-// post save middleware / hook
-studentSchema.post('save', function (doc, next) {
-  // code to be executed after saving the document
-  doc.password = '';
-  next();
-});
-studentSchema.pre('find', function (next) {
-  // console.log(this);
-  this.find({ isDeleted: { $ne: true } });
-  next();
-});
-studentSchema.pre('findOne', function (next) {
-  // console.log(this);
-  this.findOne({ isDeleted: { $ne: true } });
-  next();
-});
-studentSchema.pre('aggregate', function (next) {
-  // console.log(this);
-  this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
+// // pre save middleaware / hook
+// studentSchema.pre('save', async function (next) {
+//   // code to be executed before saving the document
+//   // console.log(this, 'pre hook code to be executed before saving the document');
+//   // eslint-disable-next-line @typescript-eslint/no-this-alias
+//   const user = this;
+//   //hashing password and save in db
+//   user.password = await bcrypt.hash(user.password, Number(config.bcrypt_salt));
+//   next();
+// });
+// // post save middleware / hook
+// studentSchema.post('save', function (doc, next) {
+//   // code to be executed after saving the document
+//   doc.password = '';
+//   next();
+// });
+// studentSchema.pre('find', function (next) {
+//   // console.log(this);
+//   this.find({ isDeleted: { $ne: true } });
+//   next();
+// });
+// studentSchema.pre('findOne', function (next) {
+//   // console.log(this);
+//   this.findOne({ isDeleted: { $ne: true } });
+//   next();
+// });
+// studentSchema.pre('aggregate', function (next) {
+//   // console.log(this);
+//   this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
 
-  next();
-});
+//   next();
+// });
 
 //victual
 studentSchema.virtual('fullName').get(function () {
