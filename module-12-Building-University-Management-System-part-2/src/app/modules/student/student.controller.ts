@@ -1,16 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { RequestHandler, Request, Response, NextFunction } from 'express';
 import { StudentService } from './student.service';
 import { sendResponse } from '../../utils/sendResponse';
 import { StatusCodes } from 'http-status-codes';
-
-const catchAsync = (fn: RequestHandler) => {
-  return (req: Request, res: Response, next: NextFunction) => {
-    Promise.resolve(fn(req, res, next)).catch((err) => next(err));
-  };
-};
-
-const getAllStudents = catchAsync(async (req, res, next) => {
+import catchAsync from '../../utils/catchAsync';
+const getAllStudents = catchAsync(async (req, res) => {
   const result = await StudentService.getAllStudentsFromDB();
   sendResponse(res, {
     success: true,
@@ -19,8 +11,7 @@ const getAllStudents = catchAsync(async (req, res, next) => {
     data: result,
   });
 });
-
-const getSingleStudent = catchAsync(async (req, res, next) => {
+const getSingleStudent = catchAsync(async (req, res) => {
   const { studentID } = req.params;
   const result = await StudentService.getSingleStudentFromDB(studentID);
   sendResponse(res, {
@@ -30,7 +21,7 @@ const getSingleStudent = catchAsync(async (req, res, next) => {
     data: result,
   });
 });
-const deleteStudent = catchAsync(async (req, res, next) => {
+const deleteStudent = catchAsync(async (req, res) => {
   const { studentID } = req.params;
   const result = await StudentService.deleteStudentFromDB(studentID);
   sendResponse(res, {
