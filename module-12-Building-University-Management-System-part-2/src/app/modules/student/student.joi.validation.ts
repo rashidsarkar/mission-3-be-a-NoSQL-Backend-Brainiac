@@ -88,4 +88,3 @@ const studentValidationSchema = Joi.object({
     'string.empty': 'Active status is required',
   }),
 });
-export default studentValidationSchema;
