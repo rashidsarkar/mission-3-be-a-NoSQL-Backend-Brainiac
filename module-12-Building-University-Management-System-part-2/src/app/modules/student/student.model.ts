@@ -108,7 +108,7 @@ const studentSchema = new Schema<TStudent, StudentModel>(
       required: [true, 'Gender is required'], // Field is required
     },
     dateOfBirth: {
-      type: String, // Optional field
+      type: Date, // Optional field
     },
     email: {
       type: String,

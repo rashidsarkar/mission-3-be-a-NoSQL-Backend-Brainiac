@@ -26,7 +26,7 @@ export type TStudent = {
   isDeleted: boolean;
   user: Types.ObjectId;
   gender: 'male' | 'female';
-  dateOfBirth?: string;
+  dateOfBirth?: Date;
   contactNo: string;
   emergencyContactNo: string;
   bloodGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+';
