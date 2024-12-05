@@ -3,6 +3,7 @@ import catchAsync from '../../utils/catchAsync';
 import { sendResponse } from '../../utils/sendResponse';
 import { StatusCodes } from 'http-status-codes';
 import { academicSemesterService } from './academicSemester.service';
+import { validatedRequest } from '../../middlwares/validateRequest';
 
 const createacademicSemester = catchAsync(
   async (req: Request, res: Response) => {

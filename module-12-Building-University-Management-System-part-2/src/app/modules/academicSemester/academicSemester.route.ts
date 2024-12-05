@@ -17,6 +17,9 @@ router.get(
 );
 router.patch(
   '/:semesterId',
+  validatedRequest(
+    academicSemesterValidation.updateAcademicSemesterValidationSchema,
+  ),
   academicSemesterControllers.updateacademicSemester,
 );
 export const academicSemesterRoute = router;

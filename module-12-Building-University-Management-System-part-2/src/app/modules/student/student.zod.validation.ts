@@ -37,6 +37,7 @@ const createtudentZodValidationSchema = z.object({
       gender: z.enum(['male', 'female'], {
         errorMap: () => ({ message: 'Invalid gender' }),
       }),
+      admissionSemester: z.string(),
       dateOfBirth: z.date().optional(),
       email: z
         .string()
