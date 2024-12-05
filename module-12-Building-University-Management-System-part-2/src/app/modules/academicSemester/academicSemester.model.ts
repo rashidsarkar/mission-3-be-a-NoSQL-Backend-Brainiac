@@ -12,8 +12,12 @@ import {
 } from './academicSemester.const';
 
 const academicSemesterSchema = new Schema<TAcademicSemester>({
-  name: academicSemesterName,
-  year: Date,
+  name: {
+    type: String,
+    enum: academicSemesterName,
+    required: true,
+  },
+  year: String,
   code: {
     type: String,
     enum: academicSemesterCode,
