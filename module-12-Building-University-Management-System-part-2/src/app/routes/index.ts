@@ -20,7 +20,7 @@ const moduleRoutes = [
     route: academicSemesterRoute,
   },
   {
-    path: '/academicFaculty',
+    path: '/academic-faculty',
     route: academicFacultyRoutes,
   },
 ];
