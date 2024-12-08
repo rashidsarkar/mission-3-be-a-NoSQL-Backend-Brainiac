@@ -4,14 +4,15 @@ import { sendResponse } from '../../utils/sendResponse';
 import { StatusCodes } from 'http-status-codes';
 import catchAsync from '../../utils/catchAsync';
 
-const createStudent = catchAsync(async (req, res, next) => {
+const createStudent = catchAsync(async (req, res) => {
   const { password, student: studentData } = req.body;
 
   const result = await UserService.createStudentIntoDb(password, studentData);
+  // console.log(result);
   sendResponse(res, {
     success: true,
     statusCode: StatusCodes.OK,
-    message: 'Student is created successfully',
+    message: 'Student is created successfully ..',
     data: result,
   });
 });

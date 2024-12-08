@@ -50,8 +50,10 @@ const createStudentIntoDb = async (password: string, payload: TStudent) => {
     await session.endSession();
     return newStudent;
   } catch (error) {
+    console.log(error);
     await session.abortTransaction();
     await session.endSession();
+    throw new Error(error);
   }
 };
 export const UserService = {
