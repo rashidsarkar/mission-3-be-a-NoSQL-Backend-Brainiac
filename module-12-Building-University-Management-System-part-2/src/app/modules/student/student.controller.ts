@@ -34,11 +34,12 @@ const deleteStudent = catchAsync(async (req, res) => {
 
 const updatedStudent = catchAsync(async (req, res) => {
   const { studentID } = req.params;
-  const result = await StudentService.updatedStudentFromDb(studentID, req.body);
+  const { student } = req.body;
+  const result = await StudentService.updatedStudentFromDb(studentID, student);
   sendResponse(res, {
     success: true,
     statusCode: StatusCodes.OK,
-    message: 'successfully data dated',
+    message: ' student updated done ',
     data: result,
   });
 });

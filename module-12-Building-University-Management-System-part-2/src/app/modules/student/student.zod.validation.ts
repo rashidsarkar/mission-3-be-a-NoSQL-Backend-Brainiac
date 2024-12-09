@@ -113,7 +113,6 @@ const localGuardianUpdateValidationSchema = z.object({
 // Main Student update validation schema
 const updateStudentZodValidationSchema = z.object({
   body: z.object({
-    password: z.string().max(8).optional(),
     student: z.object({
       name: userNameUpdateValidationSchema.optional(),
       gender: z
