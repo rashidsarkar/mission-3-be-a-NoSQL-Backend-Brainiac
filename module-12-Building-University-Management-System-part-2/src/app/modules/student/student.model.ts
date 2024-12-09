@@ -169,49 +169,9 @@ const studentSchema = new Schema<TStudent, StudentModel>(
   },
 );
 
-// // pre save middleaware / hook
-// studentSchema.pre('save', async function (next) {
-//   // code to be executed before saving the document
-//   // console.log(this, 'pre hook code to be executed before saving the document');
-//   // eslint-disable-next-line @typescript-eslint/no-this-alias
-//   const user = this;
-//   //hashing password and save in db
-//   user.password = await bcrypt.hash(user.password, Number(config.bcrypt_salt));
-//   next();
-// });
-// // post save middleware / hook
-// studentSchema.post('save', function (doc, next) {
-//   // code to be executed after saving the document
-//   doc.password = '';
-//   next();
-// });
-// studentSchema.pre('find', function (next) {
-//   // console.log(this);
-//   this.find({ isDeleted: { $ne: true } });
-//   next();
-// });
-// studentSchema.pre('findOne', function (next) {
-//   // console.log(this);
-//   this.findOne({ isDeleted: { $ne: true } });
-//   next();
-// });
-// studentSchema.pre('aggregate', function (next) {
-//   // console.log(this);
-//   this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
-
-//   next();
-// });
-
-//victual
 studentSchema.virtual('fullName').get(function () {
   return `${this.name.firstName} ${this.name.middleName} ${this.name.lastName}`;
 });
-
-// // Export the Student model
-// studentSchema.methods.isUserExsits = async function (id: string) {
-//   const existingUser = await Student.findOne({ id: id });
-//   return existingUser;
-// };
 
 // creating a custom static method
 studentSchema.statics.isUserExsits = async function (id) {
