@@ -11,9 +11,9 @@ router.get(
 );
 router.post(
   '/create-academic-department',
-  validatedRequest(
-    academicDepartmentValidation.createAcademicDepartmentValidation,
-  ),
+  // validatedRequest(
+  //   academicDepartmentValidation.createAcademicDepartmentValidation,
+  // ),
   academicDepartmentController.createAcademicDepartment,
 );
 router.patch(
