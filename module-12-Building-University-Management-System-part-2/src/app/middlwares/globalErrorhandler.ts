@@ -7,6 +7,7 @@ import { handleZodError } from '../errors/handleZodError';
 import { halndleValidationError } from '../errors/handleValidationError';
 import { halndleCastError } from '../errors/halndleCastError';
 import { halndleDupliicateError } from '../errors/halndleDupliicateError';
+import AppError from '../errors/AppError';
 
 export const globalErrorHandler: ErrorRequestHandler = (
   err,
@@ -45,6 +46,23 @@ export const globalErrorHandler: ErrorRequestHandler = (
     statusCode = simplifiedError?.statusCode;
     message = simplifiedError?.message;
     errorSources = simplifiedError?.errorSources;
+  } else if (err instanceof AppError) {
+    statusCode = err?.statusCode;
+    message = err?.message;
+    errorSources = [
+      {
+        path: '',
+        message: err.message,
+      },
+    ];
+  } else if (err instanceof Error) {
+    message = err.message;
+    errorSources = [
+      {
+        path: '',
+        message: err.message,
+      },
+    ];
   }
   res.status(statusCode).json({
     success: false,

@@ -13,6 +13,9 @@ app.use(cors());
 //application routes
 
 app.use('/api/v1', router);
+app.get('/test', (req, res) => {
+  Promise.reject();
+});
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!');
