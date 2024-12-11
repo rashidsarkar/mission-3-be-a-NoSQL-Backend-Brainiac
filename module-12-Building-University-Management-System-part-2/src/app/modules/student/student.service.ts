@@ -3,6 +3,8 @@ import AppError from '../../errors/AppError';
 import { TStudent } from './student.interface';
 import { Student } from './student.model';
 import { User } from '../user/user.model';
+import { QueryBuilder } from '../../builder/QueryBuilder';
+import { studentSearchableFields } from './student.const';
 
 const createStudentIntoDB = async (studentData: TStudent) => {
   if (await Student.isUserExsits(studentData.id)) {
@@ -14,6 +16,7 @@ const createStudentIntoDB = async (studentData: TStudent) => {
   return result;
 };
 const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
+  /*
   const studentSearchableFields = [
     'email',
     'name.firstName',
@@ -72,6 +75,25 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
   const fieldQuery = await limitQuery.select(fields);
 
   return fieldQuery;
+  */
+  const studentQuery = new QueryBuilder(
+    Student.find()
+      .populate('admissionSemester')
+      .populate({
+        path: 'academicDepartment',
+        populate: {
+          path: 'academicFaculty',
+        },
+      }),
+    query,
+  )
+    .search(studentSearchableFields)
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
+  const result = await studentQuery.modelQuery;
+  return result;
 };
 const getSingleStudentFromDB = async (id: string) => {
   // const result = await Student.findOne({ id });

@@ -1,6 +1,6 @@
 import { FilterQuery, Query } from 'mongoose';
 
-class QueryBuilder<T> {
+export class QueryBuilder<T> {
   public modelQuery: Query<T[], T>;
   public query: Record<string, unknown>;
   constructor(modelQuery: Query<T[], T>, query: Record<string, unknown>) {
@@ -42,8 +42,9 @@ class QueryBuilder<T> {
     return this;
   }
   fields() {
-    const fields = (this.query.fields as string).split(',').join(' ') || '-__v';
-    this.modelQuery = this.modelQuery.select(fields);
+    const fields =
+      (this?.query.fields as string)?.split(',')?.join(' ') || '-__v';
+    this.modelQuery = this?.modelQuery?.select(fields);
+    return this;
   }
-  ret;
 }
