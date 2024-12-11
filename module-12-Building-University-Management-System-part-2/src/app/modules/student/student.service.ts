@@ -13,8 +13,16 @@ const createStudentIntoDB = async (studentData: TStudent) => {
 
   return result;
 };
-const getAllStudentsFromDB = async () => {
-  const result = await Student.find()
+const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
+  let searchTerm = '';
+  if (query?.searchTerm) {
+    searchTerm = query?.searchTerm as string;
+  }
+  const result = await Student.find({
+    $or: ['email', 'name.firstName', 'presentAddress'].map((fild) => ({
+      [fild]: { $regex: searchTerm, $options: 'i' },
+    })),
+  })
     .populate('admissionSemester')
     .populate({
       path: 'academicDepartment',

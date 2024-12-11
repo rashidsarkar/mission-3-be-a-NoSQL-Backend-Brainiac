@@ -3,8 +3,7 @@ import { sendResponse } from '../../utils/sendResponse';
 import { StatusCodes } from 'http-status-codes';
 import catchAsync from '../../utils/catchAsync';
 const getAllStudents = catchAsync(async (req, res) => {
-  const result = await StudentService.getAllStudentsFromDB();
-  console.log(req.query);
+  const result = await StudentService.getAllStudentsFromDB(req.query);
   sendResponse(res, {
     success: true,
     statusCode: StatusCodes.OK,
