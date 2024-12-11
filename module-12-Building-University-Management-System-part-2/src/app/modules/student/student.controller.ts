@@ -4,6 +4,7 @@ import { StatusCodes } from 'http-status-codes';
 import catchAsync from '../../utils/catchAsync';
 const getAllStudents = catchAsync(async (req, res) => {
   const result = await StudentService.getAllStudentsFromDB();
+  console.log(req.query);
   sendResponse(res, {
     success: true,
     statusCode: StatusCodes.OK,
@@ -35,6 +36,7 @@ const deleteStudent = catchAsync(async (req, res) => {
 const updatedStudent = catchAsync(async (req, res) => {
   const { studentID } = req.params;
   const { student } = req.body;
+
   const result = await StudentService.updatedStudentFromDb(studentID, student);
   sendResponse(res, {
     success: true,
