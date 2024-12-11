@@ -31,6 +31,7 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
       [fild]: { $regex: searchTerm, $options: 'i' },
     })),
   });
+
   //filtering
   const excludeFields = ['searchTerm', 'sort', 'limit', 'page', 'fields'];
   excludeFields.forEach((el) => delete queryObj[el]);
