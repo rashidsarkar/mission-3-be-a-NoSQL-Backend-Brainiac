@@ -19,17 +19,28 @@ export type TLocalGuardian = {
   occupation: string;
   address: string;
 };
+export type TGender = 'male' | 'female' | 'other';
+export type TBloodGroup =
+  | 'A+'
+  | 'A-'
+  | 'B+'
+  | 'B-'
+  | 'AB+'
+  | 'AB-'
+  | 'O+'
+  | 'O-';
+
 export type TStudent = {
   id: string;
   name: TUserName;
   password: string;
   isDeleted: boolean;
   user: Types.ObjectId;
-  gender: 'male' | 'female';
+  gender: TGender;
   dateOfBirth?: Date;
   contactNo: string;
   emergencyContactNo: string;
-  bloodGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+';
+  bloodGroup?: TBloodGroup;
   presentAddress: string;
   permanentAddress: string;
   guardian: TGuardian;

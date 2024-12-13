@@ -9,7 +9,7 @@ import {
 } from './student.interface';
 
 // Schema for user name details
-const userNameSchema = new Schema<TUserName>({
+export const userNameSchema = new Schema<TUserName>({
   firstName: {
     type: String,
     required: [true, 'First name is required'], // Field is required
@@ -22,13 +22,16 @@ const userNameSchema = new Schema<TUserName>({
       message:
         '{VALUE} is not valid. First name should start with a capital letter',
     },
+    trim: true,
   },
   middleName: {
     type: String, // Optional field
+    trim: true,
   },
   lastName: {
     type: String,
     required: [true, 'Last name is required'], // Field is required
+    trim: true,
   },
 });
 
@@ -37,9 +40,11 @@ const guardianSchema = new Schema<TGuardian>({
   fatherName: {
     type: String,
     required: [true, 'Father name is required'], // Field is required
+    trim: true,
   },
   fatherContactNo: {
     type: String,
+
     required: [true, 'Father contact number is required'], // Field is required
   },
   fatherOccupation: {
@@ -48,6 +53,7 @@ const guardianSchema = new Schema<TGuardian>({
   },
   motherName: {
     type: String,
+    trim: true,
     required: [true, 'Mother name is required'], // Field is required
   },
   motherContactNo: {
@@ -64,6 +70,7 @@ const guardianSchema = new Schema<TGuardian>({
 const localGuardianSchema = new Schema<TLocalGuardian>({
   name: {
     type: String,
+    trim: true,
     required: [true, 'Local guardian name is required'], // Field is required
   },
   contactNo: {
