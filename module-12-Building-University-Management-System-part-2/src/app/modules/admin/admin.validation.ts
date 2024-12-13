@@ -50,7 +50,7 @@ export const updateAdminValidationSchema = z.object({
   }),
 });
 
-export const AdminValidations = {
+export const adminValidations = {
   createAdminValidationSchema,
   updateAdminValidationSchema,
 };
