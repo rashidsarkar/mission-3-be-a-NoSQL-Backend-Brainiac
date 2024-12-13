@@ -6,10 +6,10 @@ const router = express.Router();
 // will call controller func
 // router.post('/create-student', StudentControllers.createStudent);
 router.get('/', StudentControllers.getAllStudents);
-router.get('/:studentID', StudentControllers.getSingleStudent);
-router.delete('/:studentID', StudentControllers.deleteStudent);
+router.get('/:id', StudentControllers.getSingleStudent);
+router.delete('/:id', StudentControllers.deleteStudent);
 router.patch(
-  '/:studentID',
+  '/:id',
   validatedRequest(updateStudentZodValidationSchema),
   StudentControllers.updatedStudent,
 );
