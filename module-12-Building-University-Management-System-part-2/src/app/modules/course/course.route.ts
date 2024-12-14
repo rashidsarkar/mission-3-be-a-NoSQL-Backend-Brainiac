@@ -11,10 +11,10 @@ router.post(
   validatedRequest(courseValidation.createCourseValidationSchema),
   courseController.createCourse,
 );
-// router.patch(
-//   '/updated-academic-faculty/:facultyId',
-//   validatedRequest(courseValidation.CreateAcademicFacultySchemaValidation),
-//   courseController.upDateAcademicFaculty,
-// );
-router.delete('/delete-course', courseController.deleteCourse);
+router.patch(
+  '/updated-course/:id',
+  validatedRequest(courseValidation.updateCourseValidationSchema),
+  courseController.upDateCourse,
+);
+router.delete('/delete-course/:id', courseController.deleteCourse);
 export const courseRoute = router;
