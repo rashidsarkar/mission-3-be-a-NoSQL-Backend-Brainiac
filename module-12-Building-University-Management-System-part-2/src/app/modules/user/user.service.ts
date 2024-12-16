@@ -63,7 +63,7 @@ const createStudentIntoDb = async (password: string, payload: TStudent) => {
     throw new Error(error);
   }
 };
-const createFacultyIntoDB = async (Password: string, payload: TFaculty) => {
+const createFacultyIntoDB = async (password: string, payload: TFaculty) => {
   const userData: Partial<TUser> = {};
 
   userData.password = password || (config.default_pass as string);
